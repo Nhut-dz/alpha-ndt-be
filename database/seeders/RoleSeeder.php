@@ -17,6 +17,7 @@ class RoleSeeder extends Seeder
             ['name' => 'Super Admin'],
             ['name' => 'Post_Admin'],
             ['name' => 'HR_Admin'],
+            ['name' => 'Contact_Admin'],
         ]);
     }
 }
