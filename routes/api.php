@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\PostCategoryController;
+use App\Http\Controllers\ContactController;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,7 +39,10 @@ Route::middleware('auth:sanctum')->group(function () {
 
     // Contact management routes - Super Admin & Contact_Admin
     Route::middleware('role:Contact_Admin')->prefix('contacts')->group(function () {
-        // TODO: ContactController CRUD
+        Route::get('/', [ContactController::class, 'index']);
+        Route::get('/{id}', [ContactController::class, 'show']);
+        Route::patch('/{id}/status', [ContactController::class, 'updateStatus']);
+        Route::delete('/{id}', [ContactController::class, 'destroy']);
     });
 
     // HR management routes - Super Admin & HR_Admin
