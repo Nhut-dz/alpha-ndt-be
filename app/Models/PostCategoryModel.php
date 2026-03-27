@@ -17,4 +17,9 @@ class PostCategoryModel extends Model
         'description',
         'status',
     ];
+
+    public function posts()
+    {
+        return $this->hasMany(PostModel::class, 'post_category_id');
+    }
 }

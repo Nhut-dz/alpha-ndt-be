@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\PostController;
+use App\Http\Controllers\PostCategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,12 +31,9 @@ Route::middleware('auth:sanctum')->group(function () {
     });
 
     // Post management routes - Super Admin & Post_Admin
-    Route::middleware('role:Post_Admin')->prefix('posts')->group(function () {
-        // TODO: PostController CRUD
-    });
-
-    Route::middleware('role:Post_Admin')->prefix('post-categories')->group(function () {
-        // TODO: PostCategoryController CRUD
+    Route::middleware('role:Post_Admin')->group(function () {
+        Route::apiResource('posts', PostController::class);
+        Route::apiResource('post-categories', PostCategoryController::class)->except(['show']);
     });
 
     // Contact management routes - Super Admin & Contact_Admin
