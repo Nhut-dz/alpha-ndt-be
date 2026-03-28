@@ -21,6 +21,19 @@ class PostModel extends Model
         'admin_id',
         'post_category_id',
     ];
+
+    protected $appends = ['img_url'];
+
+    public function getImgUrlAttribute(): ?string
+    {
+        if (!$this->img) {
+            return null;
+        }
+        if (str_starts_with($this->img, 'http')) {
+            return $this->img;
+        }
+        return asset('storage/' . $this->img);
+    }
     public function admin()
     {
         return $this->belongsTo(AdminModel::class, 'admin_id');
