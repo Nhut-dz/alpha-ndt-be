@@ -9,7 +9,7 @@ class PostCategoryModel extends Model
 {
     //
     use HasFactory;
-    protected $table = 'tblpost_category';
+    protected $table = 'tblposts_category';
     protected $primaryKey = 'id';
     protected $fillable = [
         'name',
