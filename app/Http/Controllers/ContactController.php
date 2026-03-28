@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Contact\StoreContactRequest;
 use App\Services\ContactService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -11,6 +12,12 @@ class ContactController extends Controller
     public function __construct(
         protected ContactService $contactService
     ) {}
+
+    public function store(StoreContactRequest $request): JsonResponse
+    {
+        $result = $this->contactService->store($request->validated());
+        return response()->json($result, 201);
+    }
 
     public function index(): JsonResponse
     {

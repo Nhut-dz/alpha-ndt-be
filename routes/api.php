@@ -21,6 +21,13 @@ Route::prefix('auth')->group(function () {
     Route::post('/reset-password', [AuthController::class, 'resetPassword']);
 });
 
+// Public API - Frontend website (no auth required)
+Route::prefix('public')->group(function () {
+    Route::get('/posts', [PostController::class, 'publicIndex']);
+    Route::get('/posts/{slug}', [PostController::class, 'publicShow']);
+    Route::post('/contacts', [ContactController::class, 'store']);
+});
+
 // Protected routes (auth:sanctum required)
 Route::middleware('auth:sanctum')->group(function () {
 

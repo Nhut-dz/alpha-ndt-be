@@ -84,6 +84,41 @@ class PostService
         ];
     }
 
+    public function getPublished(): array
+    {
+        $posts = PostModel::with(['admin:id,name', 'category:id,name,slug'])
+            ->where('status', 1)
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        return [
+            'success' => true,
+            'data' => $posts,
+        ];
+    }
+
+    public function showBySlug(string $slug): array
+    {
+        $post = PostModel::with(['admin:id,name', 'category:id,name,slug'])
+            ->where('slug', $slug)
+            ->where('status', 1)
+            ->first();
+
+        if (!$post) {
+            return [
+                'success' => false,
+                'message' => 'Bài viết không tồn tại.',
+            ];
+        }
+
+        $post->increment('view');
+
+        return [
+            'success' => true,
+            'data' => $post,
+        ];
+    }
+
     public function delete(int $id): array
     {
         $post = PostModel::find($id);

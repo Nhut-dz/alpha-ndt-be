@@ -46,4 +46,17 @@ class PostController extends Controller
         $result = $this->postService->delete($id);
         return response()->json($result, $result['success'] ? 200 : 404);
     }
+
+    // Public endpoints (no auth)
+    public function publicIndex(): JsonResponse
+    {
+        $result = $this->postService->getPublished();
+        return response()->json($result);
+    }
+
+    public function publicShow(string $slug): JsonResponse
+    {
+        $result = $this->postService->showBySlug($slug);
+        return response()->json($result, $result['success'] ? 200 : 404);
+    }
 }

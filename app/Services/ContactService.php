@@ -6,6 +6,17 @@ use App\Models\ContactModel;
 
 class ContactService
 {
+    public function store(array $data): array
+    {
+        $contact = ContactModel::create($data);
+
+        return [
+            'success' => true,
+            'message' => 'Gửi liên hệ thành công. Chúng tôi sẽ phản hồi trong thời gian sớm nhất.',
+            'data' => $contact,
+        ];
+    }
+
     public function getAll(): array
     {
         $contacts = ContactModel::orderBy('created_at', 'desc')->get();
