@@ -16,7 +16,7 @@ class StorePostRequest extends FormRequest
         return [
             'title' => ['required', 'string', 'max:255'],
             'content' => ['required', 'string'],
-            'post_category_id' => ['required', 'exists:tblpost_category,id'],
+            'post_category_id' => ['required', 'exists:tblposts_category,id'],
             'img' => ['nullable', 'image', 'max:2048'],
             'status' => ['sometimes', 'integer', 'in:0,1'],
         ];

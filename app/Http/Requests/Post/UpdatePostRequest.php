@@ -16,7 +16,7 @@ class UpdatePostRequest extends FormRequest
         return [
             'title' => ['sometimes', 'string', 'max:255'],
             'content' => ['sometimes', 'string'],
-            'post_category_id' => ['sometimes', 'exists:tblpost_category,id'],
+            'post_category_id' => ['sometimes', 'exists:tblposts_category,id'],
             'img' => ['nullable', 'image', 'max:2048'],
             'status' => ['sometimes', 'integer', 'in:0,1'],
         ];
