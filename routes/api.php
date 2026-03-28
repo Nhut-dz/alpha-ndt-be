@@ -6,6 +6,8 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\PostCategoryController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\RecruitmentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,6 +28,14 @@ Route::prefix('public')->group(function () {
     Route::get('/posts', [PostController::class, 'publicIndex']);
     Route::get('/posts/{slug}', [PostController::class, 'publicShow']);
     Route::post('/contacts', [ContactController::class, 'store']);
+
+    // Projects
+    Route::get('/projects', [ProjectController::class, 'publicIndex']);
+    Route::get('/projects/{slug}', [ProjectController::class, 'publicShow']);
+
+    // Recruitments
+    Route::get('/recruitments', [RecruitmentController::class, 'publicIndex']);
+    Route::get('/recruitments/{slug}', [RecruitmentController::class, 'publicShow']);
 });
 
 // Protected routes (auth:sanctum required)
@@ -61,8 +71,13 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::patch('/{id}/status', [AdminController::class, 'updateStatus']);
     });
 
-    // HR management routes - Super Admin & HR_Admin
-    Route::middleware('role:HR_Admin')->prefix('hr')->group(function () {
-        // TODO: HR routes
+    // Project management routes - Super Admin & Post_Admin
+    Route::middleware('role:Post_Admin')->group(function () {
+        Route::apiResource('projects', ProjectController::class);
+    });
+
+    // Recruitment management routes - Super Admin & HR_Admin
+    Route::middleware('role:HR_Admin')->group(function () {
+        Route::apiResource('recruitments', RecruitmentController::class);
     });
 });

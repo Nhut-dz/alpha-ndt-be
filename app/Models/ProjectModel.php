@@ -7,8 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class ProjectModel extends Model
 {
-    //
     use HasFactory;
+
     protected $table = 'tblprojects';
     protected $primaryKey = 'id';
     protected $fillable = [
@@ -16,12 +16,29 @@ class ProjectModel extends Model
         'slug',
         'description',
         'content',
+        'client',
+        'industry',
+        'location',
+        'year',
+        'duration',
+        'tag',
         'img',
-        'view',
+        'highlights',
+        'methods',
+        'standards',
         'status',
+        'sort_order',
         'admin_id',
     ];
+
+    protected $casts = [
+        'highlights' => 'array',
+        'methods' => 'array',
+        'standards' => 'array',
+    ];
+
     protected $appends = ['img_url'];
+
     public function getImgUrlAttribute(): ?string
     {
         if (!$this->img) {
@@ -32,6 +49,7 @@ class ProjectModel extends Model
         }
         return asset('storage/' . $this->img);
     }
+
     public function admin()
     {
         return $this->belongsTo(AdminModel::class, 'admin_id');
