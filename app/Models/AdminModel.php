@@ -18,6 +18,7 @@ class AdminModel extends Authenticatable
         'email',
         'password',
         'role_id',
+        'status',
     ];
 
     protected $hidden = [

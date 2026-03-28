@@ -5,6 +5,7 @@ use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\PostCategoryController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\AdminController;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,6 +44,14 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('/{id}', [ContactController::class, 'show']);
         Route::patch('/{id}/status', [ContactController::class, 'updateStatus']);
         Route::delete('/{id}', [ContactController::class, 'destroy']);
+    });
+
+    // Admin management routes - Super Admin only
+    Route::middleware('role:Super Admin')->prefix('admins')->group(function () {
+        Route::get('/', [AdminController::class, 'index']);
+        Route::get('/profile', [AdminController::class, 'profile']);
+        Route::get('/{id}', [AdminController::class, 'show']);
+        Route::patch('/{id}/status', [AdminController::class, 'updateStatus']);
     });
 
     // HR management routes - Super Admin & HR_Admin
